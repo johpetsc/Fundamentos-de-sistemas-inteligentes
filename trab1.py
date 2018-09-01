@@ -47,13 +47,8 @@ def knnk():
     Y_test = np.array(test.labels)
 
     knn = KNeighborsClassifier(n_neighbors=3)
-    knn.fit(X_test, Y_test)
 
-    if Path('./model.pkl').is_file():
-        knn = joblib.load('model.pkl')
-    else:
-        knn.fit(X_train, Y_train)
-        joblib.dump(knn, 'model.pkl')
+    knn.fit(X_train, Y_train)
 
     print(len(Y_test))
     print(np.shape(Y_test))
