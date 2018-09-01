@@ -46,7 +46,8 @@ def knnk():
     X_test = np.array(test.images)
     Y_test = np.array(test.labels)
 
-    knn = KNeighborsClassifier(n_neighbors=0)
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X_test, Y_test)
 
     if Path('./model.pkl').is_file():
         knn = joblib.load('model.pkl')
@@ -57,7 +58,7 @@ def knnk():
     print(len(Y_test))
     print(np.shape(Y_test))
 
-    pred = knn.predict(X_train)
+    pred = knn.predict(X_test)
 
     print(accuracy_score(Y_test, pred))
 
