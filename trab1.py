@@ -3,7 +3,6 @@ import pylab as pl
 import random as rand
 import collections
 import numpy as np
-from pathlib import Path
 from mnist import MNIST
 from sklearn.externals import joblib
 from sklearn.metrics import accuracy_score
@@ -46,16 +45,38 @@ def knnk():
     X_test = np.array(test.images)
     Y_test = np.array(test.labels)
 
-    knn = KNeighborsClassifier(n_neighbors=3)
+    knn = KNeighborsClassifier(n_neighbors=20)
 
     knn.fit(X_train, Y_train)
 
-    print(len(Y_test))
-    print(np.shape(Y_test))
+    print("...")
 
     pred = knn.predict(X_test)
 
     print(accuracy_score(Y_test, pred))
 
+def lda():
+    train = Training(mndata)
+    X_train = np.array(train.images)
+    Y_train = np.array(train.labels)
 
-knnk()
+    test = Testing(mndata)
+    X_test = np.array(test.images)
+    Y_test = np.array(test.labels)
+
+    clf = LinearDiscriminantAnalysis()
+
+    clf.fit(X_train, Y_train)
+
+    print("...")
+
+    pred = clf.predict(X_test)
+
+    print(accuracy_score(Y_test, pred))
+
+opcao = input("1.KNN 2. LDA: ")
+
+if opcao == 1:
+    knnk()
+else:
+    lda()
