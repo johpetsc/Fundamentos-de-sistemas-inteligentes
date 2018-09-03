@@ -6,6 +6,7 @@ import numpy as np
 from mnist import MNIST
 from sklearn.externals import joblib
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
@@ -52,9 +53,10 @@ def knnk():
     print("...")
 
     pred = knn.predict(X_test)
-
+    
     print(accuracy_score(Y_test, pred))
-
+    print("Matriz de Confusao")
+    print confusion_matrix(Y_train,pred)
 def lda():
     train = Training(mndata)
     X_train = np.array(train.images)
@@ -73,7 +75,8 @@ def lda():
     pred = clf.predict(X_test)
 
     print(accuracy_score(Y_test, pred))
-
+    print("Matriz de Confusao")
+    print confusion_matrix(Y_train,pred)
 opcao = input("1.KNN 2. LDA: ")
 
 if opcao == 1:
