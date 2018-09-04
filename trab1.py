@@ -1,4 +1,3 @@
-#import matplotlib.pyplot as plt
 import pylab as pl
 import random as rand
 import collections
@@ -13,25 +12,25 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 mndata = MNIST('imagens')
 mndata.gz = True
 
-def Training(mndata):
+def Training(mndata): #funcao para ler os dados de treino
     images, labels = mndata.load_testing()
 
-    index = rand.randrange(0, len(images))
+    #index = rand.randrange(0, len(images))
     
-    print(mndata.display(images[index]))
-    print(labels[index])
+    #print(mndata.display(images[index]))
+    #print(labels[index])
 
     Train = collections.namedtuple('Train', ['images', 'labels'])
 
     return Train(images, labels)
 
-def Testing(mndata):
+def Testing(mndata): #funcao para ler os dados de teste
     images, labels = mndata.load_training()
 
-    index = rand.randrange(0, len(images))
+    #index = rand.randrange(0, len(images))
     
-    print(mndata.display(images[index]))
-    print(labels[index])
+    #print(mndata.display(images[index]))
+    #print(labels[index])
 
     Test = collections.namedtuple('Test', ['images', 'labels'])
 
@@ -46,7 +45,7 @@ def knnk():
     X_test = np.array(test.images)
     Y_test = np.array(test.labels)
 
-    knn = KNeighborsClassifier(n_neighbors=20)
+    knn = KNeighborsClassifier(n_neighbors=6)
 
     knn.fit(X_train, Y_train)
 
@@ -55,8 +54,9 @@ def knnk():
     pred = knn.predict(X_test)
     
     print(accuracy_score(Y_test, pred))
-    print("Matriz de Confusao")
-    print confusion_matrix(Y_train,pred)
+    print("Matriz de Confusao KNN")
+    print (confusion_matrix(Y_test, pred))
+
 def lda():
     train = Training(mndata)
     X_train = np.array(train.images)
@@ -75,11 +75,9 @@ def lda():
     pred = clf.predict(X_test)
 
     print(accuracy_score(Y_test, pred))
-    print("Matriz de Confusao")
-    print confusion_matrix(Y_train,pred)
-opcao = input("1.KNN 2. LDA: ")
+    print("Matriz de Confusao LDA")
+    print (confusion_matrix(Y_test, pred))
 
-if opcao == 1:
-    knnk()
-else:
-    lda()
+lda()
+knnk()
+
