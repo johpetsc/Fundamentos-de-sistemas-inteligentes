@@ -23,6 +23,8 @@ prob = rf.predict_proba(images)
 
 #Limpa os warnings da tela
 print("\033[H\033[J")
+print("Pressione ENTER para continuar.\n")
+sys.stdin.read(1)
 
 print("\n\n\n\n\nValores das folhas:\n")
 print(folhas.head(340))
