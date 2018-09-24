@@ -17,7 +17,7 @@ images = folhas.values
 
 #http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
 #Determinando os valores da floresta utilizando a biblioteca sklearn
-rf = RandomForestClassifier(n_estimators=50)
+rf = RandomForestClassifier(n_estimators=25)
 fit = rf.fit(images,labels)
 predict = cross_val_predict(rf, images, labels, cv = 10)
 score = cross_val_score(rf, images, labels, cv = 10)
@@ -43,18 +43,31 @@ sys.stdin.read(1)
 print("\n\nPrecisão média:\n")
 print(accuracy_score(labels, predict))
 sys.stdin.read(1)
-print("\n\nMatriz de confusão:\n")
-print(confusion_matrix(labels, predict))
-sys.stdin.read(1)
 
-#Plota um gráfico dos atributos/features mais importantes
-feat_importances = pd.Series(rf.feature_importances_, index=folhas.columns)
-feat_importances.nlargest(14).plot(kind='barh', title = 'Importancia dos Atributos/Features')
+choice = input("Deseja plotar o(s) gráfico(s) \n1)da matriz de confusão \n2)das features mais importantes \n3)Ambas\n ")
+if choice == 2:
+	feat_importances = pd.Series(rf.feature_importances_, index=folhas.columns)
+	feat_importances.nlargest(14).plot(kind='barh', title = 'Importancia dos Atributos/	    Features')
+	plt.show()
+	#Plota um gráfico dos atributos/features mais importantes
 
-cm = confusion_matrix(labels, predict)
-plt.matshow(cm)
-plt.ylabel('X')
-plt.xlabel('Y')
-plt.title('MATRIZ DE CONFUSAO')
-plt.colorbar()
-plt.show()
+elif choice == 1:
+	cm = confusion_matrix(labels, predict)
+	plt.matshow(cm)
+	plt.ylabel('X')
+	plt.xlabel('Y')
+	plt.title('MATRIZ DE CONFUSAO')
+	plt.colorbar()
+	plt.show()
+	#Plota a matriz de confusão
+
+else:
+	feat_importances = pd.Series(rf.feature_importances_, index=folhas.columns)
+	feat_importances.nlargest(14).plot(kind='barh', title = 'Importancia dos Atributos/Features')
+	cm = confusion_matrix(labels, predict)
+	plt.matshow(cm)
+	plt.ylabel('X')
+	plt.xlabel('Y')
+	plt.title('MATRIZ DE CONFUSAO')
+	plt.colorbar()
+	plt.show()
