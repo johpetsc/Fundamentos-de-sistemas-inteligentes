@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 import pandas as pd
 from sklearn import datasets
 from sklearn.metrics import confusion_matrix
@@ -9,8 +10,9 @@ import sys
 
 #https://towardsdatascience.com/random-forest-in-python-24d0893d51c0
 #Leitura do arquivo .csv usando a biblioteca pandas
-folhas = pd.read_csv("imagens/leaf.csv", header=None)
-labels = folhas.pop(0).values 
+names = ['Class','Specimen Number','Eccentricity','Aspect Ratio','Elongation','Solidity','Stochastic Convexity','Isoperimetric Factor','Maximal Indentation Depth','Lobedness','Average Intensity','Average Contrast','Smoothness','Third moment','Uniformity','Entropy']
+folhas = pd.read_csv("imagens/leaf.csv", names = names, header=None)
+labels = folhas.pop('Class').values 
 images = folhas.values
 
 #http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
@@ -45,7 +47,9 @@ print("\n\nMatriz de confusão:\n")
 print(confusion_matrix(labels, predict))
 sys.stdin.read(1)
 
-
+#Plota um gráfico dos atributos/features mais importantes
+feat_importances = pd.Series(rf.feature_importances_, index=folhas.columns)
+feat_importances.nlargest(14).plot(kind='barh', title = 'Importancia dos Atributos/Features')
 
 cm = confusion_matrix(labels, predict)
 plt.matshow(cm)
