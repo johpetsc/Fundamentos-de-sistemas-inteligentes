@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*- 
 import pandas as pd
 import numpy as np
-from sklearn import datasets
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split, learning_curve
+from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 import sys
 
@@ -44,7 +43,7 @@ for x in range(-5, 15):
 
 #"Plota o gráfico dos erros de teste vs o valor de c."
 
-c = ('2^-5', '2^-4','2^-3','2^-2','2^-1','2^0','2^1','2^2','2^3','2^4','2^5','2^6','2^7','2^8','2^9','2^10','2^11','2^12','2^13','2^14','2^15')
+c = ('2^-5','2^-4','2^-3','2^-2','2^-1','2^0','2^1','2^2','2^3','2^4','2^5','2^6','2^7','2^8','2^9','2^10','2^11','2^12','2^13','2^14','2^15')
 y_pos = np.arange(len(c))
 plt.barh(y_pos, erros)
 plt.yticks(y_pos,c)
