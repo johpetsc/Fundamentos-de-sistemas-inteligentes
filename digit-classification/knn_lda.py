@@ -9,11 +9,11 @@ from sklearn.metrics import confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
-mndata = MNIST('imagens')
+mndata = MNIST('data')
 mndata.gz = True
 
-def Training(mndata): #funcao para ler os dados de treino
-    images, labels = mndata.load_testing()
+def training(mndata): # function that returns the train data
+    images, labels = mndata.load_training()
 
     #index = rand.randrange(0, len(images))
     
@@ -24,8 +24,8 @@ def Training(mndata): #funcao para ler os dados de treino
 
     return Train(images, labels)
 
-def Testing(mndata): #funcao para ler os dados de teste
-    images, labels = mndata.load_training()
+def testing(mndata): # function that returns the test data
+    images, labels = mndata.load_testing()
 
     #index = rand.randrange(0, len(images))
     
@@ -36,12 +36,12 @@ def Testing(mndata): #funcao para ler os dados de teste
 
     return Test(images, labels)
 
-def knnk():
-    train = Training(mndata)
+def knn_model():
+    train = training(mndata)
     X_train = np.array(train.images)
     Y_train = np.array(train.labels)
 
-    test = Testing(mndata)
+    test = testing(mndata)
     X_test = np.array(test.images)
     Y_test = np.array(test.labels)
 
@@ -54,15 +54,15 @@ def knnk():
     pred = knn.predict(X_test)
     
     print(accuracy_score(Y_test, pred))
-    print("Matriz de Confusao KNN")
+    print("Confusion Matrix KNN")
     print (confusion_matrix(Y_test, pred))
 
-def lda():
-    train = Training(mndata)
+def lda_model():
+    train = training(mndata)
     X_train = np.array(train.images)
     Y_train = np.array(train.labels)
 
-    test = Testing(mndata)
+    test = testing(mndata)
     X_test = np.array(test.images)
     Y_test = np.array(test.labels)
 
@@ -75,9 +75,9 @@ def lda():
     pred = clf.predict(X_test)
 
     print(accuracy_score(Y_test, pred))
-    print("Matriz de Confusao LDA")
+    print("Confusion Matrix LDA")
     print (confusion_matrix(Y_test, pred))
 
-lda()
-knnk()
+lda_model()
+knn_model()
 

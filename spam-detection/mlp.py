@@ -16,7 +16,7 @@ head = ['0','word_freq_make', 'word_freq_address', 'word_freq_all', 'word_freq_3
 'word_freq_pm','word_freq_direct','word_freq_cs','word_freq_meeting','word_freq_original','word_freq_project','word_freq_re',
 'word_freq_edu','word_freq_table','word_freq_conference','char_freq_;','char_freq_(','char_freq_[','char_freq_!',
 'char_freq_$','char_freq_#','capital_run_length_average','capital_run_length_longest','capital_run_length_total','spam']
-df = pd.read_table('imagens/spambase.data.txt', delim_whitespace=True, header=None,names=head)#lendo todos os atributos do arquivo
+df = pd.read_table('data/spambase.data.txt', delim_whitespace=True, header=None,names=head)
 
 for item in head:
 	if item != '0': 
@@ -40,7 +40,7 @@ def classification_report_with_accuracy_score(y_true, y_pred):
     print (classification_report(y_true, y_pred))
     return accuracy_score(y_true, y_pred) 
 
-clf = MLPClassifier(hidden_layer_sizes=(57,57,57))#funcao para MLP
+clf = MLPClassifier(hidden_layer_sizes=(57,57,57))
 predictions = cross_val_predict(clf,X,y,cv=10)
 score = cross_val_score(clf,X,y,cv=10,scoring = make_scorer(classification_report_with_accuracy_score))
 print(score)
@@ -48,11 +48,11 @@ cm = confusion_matrix(y, predictions)
 plt.matshow(cm)
 plt.ylabel('X')
 plt.xlabel('Y')
-plt.title('MATRIZ DE CONFUSAO')
+plt.title('Confusion Matrix')
 plt.colorbar()
 plt.show()
 
-gpc = GaussianProcessClassifier(kernel = 1.0 * RBF(1.0)).fit(X, y)#funcao para fbr
+gpc = GaussianProcessClassifier(kernel = 1.0 * RBF(1.0)).fit(X, y)
 predict = gpc.predict(X)
 score = gpc.score(X, y)
 print(score)
@@ -63,6 +63,6 @@ cm = confusion_matrix(y, predict)
 plt.matshow(cm)
 plt.ylabel('X')
 plt.xlabel('Y')
-plt.title('MATRIZ DE CONFUSAO')
+plt.title('Confusion Matrix')
 plt.colorbar()
 plt.show()
